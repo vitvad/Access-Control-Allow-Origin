@@ -1,0 +1,22 @@
+{
+	"name": "Allow-Control-Allow-Origin: *",
+	"version": "1.0",
+	"manifest_version": 2,
+	"description": "Allow to you request any site with ajax from any source. Add to response - 'Allow-Control-Allow-Origin: *' header",
+	"background": {
+		"scripts": ["background.js"]
+	},
+	"browser_action": {
+	"default_icon": "off.gif",
+	"default_title": "Allow-Control-Allow-Origin"
+	},
+	"permissions": [
+		"storage",
+		"webRequest",
+		"webRequestBlocking",
+		"*://*/*"
+	],
+	"web_accessible_resources": [
+		"on.gif","off.gif"
+	]
+}
