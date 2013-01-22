@@ -7,7 +7,7 @@
 		"scripts": ["background.js"]
 	},
 	"browser_action": {
-	"default_icon": "off.gif",
+	"default_icon": "off.png",
 	"default_title": "Allow-Control-Allow-Origin"
 	},
 	"permissions": [
@@ -17,6 +17,6 @@
 		"*://*/*"
 	],
 	"web_accessible_resources": [
-		"on.gif","off.gif"
+		"on.png","off.png"
 	]
 }
