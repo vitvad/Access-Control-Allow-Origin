@@ -37,14 +37,14 @@ chrome.runtime.onInstalled.addListener(function(){
 chrome.browserAction.onClicked.addListener(function(tab){
 	if(localStorage.active === "true"){
 		localStorage.active = false;
-		chrome.browserAction.setIcon({path: "off.gif"});
+		chrome.browserAction.setIcon({path: "off.png"});
 
 		/*Remove Response Listener*/
 		chrome.webRequest.onHeadersReceived.removeListener(responseListener);
 		chrome.webRequest.onBeforeSendHeaders.removeListener(requestListener);
 	}else{
 		localStorage.active = true;
-		chrome.browserAction.setIcon({path: "on.gif"});
+		chrome.browserAction.setIcon({path: "on.png"});
 
 		/*Add Response Listener*/
 		chrome.webRequest.onHeadersReceived.addListener(responseListener,{
