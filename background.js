@@ -1,3 +1,5 @@
+var accessControlRequestHeaders;
+
 var requestListener = function(details){
 	var flag = false,
 		rule = {
@@ -34,8 +36,6 @@ var responseListener = function(details){
 
 	if (accessControlRequestHeaders) {
 
-		console.log(accessControlRequestHeaders);
-
 		details.responseHeaders.push({"name": "Access-Control-Allow-Headers", "value": accessControlRequestHeaders});
 
 	}
@@ -52,8 +52,6 @@ chrome.runtime.onInstalled.addListener(function(){
 
 /*Icon change*/
 chrome.browserAction.onClicked.addListener(function(tab){
-
-	var accessControlRequestHeaders;
 	
 	if(localStorage.active === "true"){
 		localStorage.active = false;
