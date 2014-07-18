@@ -13,6 +13,13 @@ var requestListener = function(details){
 		}
 	}
 	if(!flag) details.requestHeaders.push(rule);
+	
+	for (var i = 0; i < details.requestHeaders.length; ++i) {
+		if (details.requestHeaders[i].name === "Access-Control-Request-Headers") {
+			accessControlRequestHeaders = details.requestHeaders[i].value	
+		}
+	}	
+	
 	return {requestHeaders: details.requestHeaders};
 };
 
@@ -24,7 +31,17 @@ var responseListener = function(details){
 
 	details.responseHeaders.push(rule);
 
+
+	if (accessControlRequestHeaders) {
+
+		console.log(accessControlRequestHeaders);
+
+		details.responseHeaders.push({"name": "Access-Control-Allow-Headers", "value": accessControlRequestHeaders});
+
+	}
+
 	return {responseHeaders: details.responseHeaders};
+	
 };
 
 
@@ -35,6 +52,9 @@ chrome.runtime.onInstalled.addListener(function(){
 
 /*Icon change*/
 chrome.browserAction.onClicked.addListener(function(tab){
+
+	var accessControlRequestHeaders;
+	
 	if(localStorage.active === "true"){
 		localStorage.active = false;
 		chrome.browserAction.setIcon({path: "off.png"});
