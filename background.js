@@ -26,13 +26,20 @@ var requestListener = function(details){
 };
 
 var responseListener = function(details){
-	var rule = {
+	var flag = false,
+	rule = {
 			"name": "Access-Control-Allow-Origin",
 			"value": "*"
 		};
 
-	details.responseHeaders.push(rule);
-
+	for (var i = 0; i < details.responseHeaders.length; ++i) {
+		if (details.responseHeaders[i].name === rule.name) {
+			flag = true;
+			details.responseHeaders[i].value = rule.value;
+			break;
+		}
+	}
+	if(!flag) details.responseHeaders.push(rule);
 
 	if (accessControlRequestHeaders) {
 
