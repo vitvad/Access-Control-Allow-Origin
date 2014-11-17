@@ -51,37 +51,37 @@ var responseListener = function(details){
 	
 };
 
-
 /*On install*/
 chrome.runtime.onInstalled.addListener(function(){
-	localStorage.active = false;
+	chrome.storage.local.set({'active': false});
+	chrome.storage.local.set({'urls': ["*://*/*"]});
+	reload();
 });
 
-/*Icon change*/
-chrome.browserAction.onClicked.addListener(function(tab){
-	
-	if(localStorage.active === "true"){
-		localStorage.active = false;
-		chrome.browserAction.setIcon({path: "off.png"});
+/*Reload settings*/
+function reload() {
+	chrome.storage.local.get({'active': false, 'urls': ["*://*/*"]}, function(result) {
 
-		/*Remove Response Listener*/
+		/*Remove Listeners*/
 		chrome.webRequest.onHeadersReceived.removeListener(responseListener);
 		chrome.webRequest.onBeforeSendHeaders.removeListener(requestListener);
-	}else{
-		localStorage.active = true;
-		chrome.browserAction.setIcon({path: "on.png"});
 
-		/*Add Response Listener*/
-		chrome.webRequest.onHeadersReceived.addListener(responseListener,{
-			urls: [
-				"*://*/*"
-			]
-		},["blocking", "responseHeaders"]);
+		if(result.active) {
+			chrome.browserAction.setIcon({path: "on.png"});
 
-		chrome.webRequest.onBeforeSendHeaders.addListener(requestListener,{
-			urls: [
-				"*://*/*"
-			]
-		},["requestHeaders"]);
-	}
-});
+			if(result.urls.length) {
+
+				/*Add Listeners*/
+				chrome.webRequest.onHeadersReceived.addListener(responseListener, {
+					urls: result.urls
+				},["blocking", "responseHeaders"]);
+
+				chrome.webRequest.onBeforeSendHeaders.addListener(requestListener, {
+					urls: result.urls
+				},["requestHeaders"]);
+			}
+		} else {
+			chrome.browserAction.setIcon({path: "off.png"});
+		}
+	});
+}
