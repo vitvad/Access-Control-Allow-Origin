@@ -86,7 +86,7 @@ function reload() {
 
 				chrome.webRequest.onBeforeSendHeaders.addListener(requestListener, {
 					urls: result.urls
-				},["requestHeaders"]);
+				},["blocking", "requestHeaders"]);
 			}
 		} else {
 			chrome.browserAction.setIcon({path: "off.png"});
