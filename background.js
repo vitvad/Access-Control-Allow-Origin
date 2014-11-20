@@ -1,4 +1,5 @@
 var accessControlRequestHeaders;
+var exposedHeaders;
 
 var requestListener = function(details){
 	var flag = false,
@@ -47,6 +48,10 @@ var responseListener = function(details){
 
 	}
 
+	if(exposedHeaders) {
+		details.responseHeaders.push({"name": "Access-Control-Expose-Headers", "value": exposedHeaders});
+	}
+
 	return {responseHeaders: details.responseHeaders};
 	
 };
@@ -55,12 +60,15 @@ var responseListener = function(details){
 chrome.runtime.onInstalled.addListener(function(){
 	chrome.storage.local.set({'active': false});
 	chrome.storage.local.set({'urls': ["*://*/*"]});
+	chrome.storage.local.set({'exposedHeaders': ''});
 	reload();
 });
 
 /*Reload settings*/
 function reload() {
-	chrome.storage.local.get({'active': false, 'urls': ["*://*/*"]}, function(result) {
+	chrome.storage.local.get({'active': false, 'urls': ["*://*/*"], 'exposedHeaders': ''}, function(result) {
+
+		exposedHeaders = result.exposedHeaders;
 
 		/*Remove Listeners*/
 		chrome.webRequest.onHeadersReceived.removeListener(responseListener);

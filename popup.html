@@ -15,16 +15,20 @@
 			<div class="list">
 				<ion-toggle ng-model="active" toggle-class="toggle-calm">Enable cross-origin resource sharing</ion-toggle>
 				<div class="item item-divider">
+					Access-Control-Expose-Headers
+				</div>
+				<text-option option="exposedHeaders" placeholder="comma-separated list of headers ..."></text-option>
+				<div class="item item-divider">
 					Intercepted URLs or URL patterns 
 					<a class="icon ion-link" style="cursor: pointer;" ng-click="openInNewTab('https://developer.chrome.com/extensions/match_patterns');"></a>
 				</div>
 				<div class="item item-input-inset">
 					<label class="item-input-wrapper">
-						<input id="input" type="text" placeholder="URL pattern" ng-model="url">
+						<input type="text" placeholder="URL or URL pattern" ng-model="url" submit-on-enter>
 					</label>
-					<a id="add-button" class="button button-icon button-small icon ion-plus-circled" ng-click="addUrl();"></a>
+					<a class="button button-icon button-small icon ion-plus-circled submit-action" ng-click="addUrl();"></a>
 				</div>
-				<div class="item item-icon-right animate-enter-leave" ng-repeat="url in urls" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
+				<div class="item item-icon-right animate-enter-leave" ng-repeat="url in urls">
 					{{url}}
 					<a class="button button-icon button-small icon ion-ios7-trash-outline" ng-click="removeUrl($index);"></a>
 				</div>

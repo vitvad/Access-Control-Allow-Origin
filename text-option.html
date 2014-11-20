@@ -1,0 +1,10 @@
+<div class="item" ng-hide="editing" ng-click="onEdit();">
+	<span style="color: #aaaaaa" ng-show="!option">{{placeholder}}</span>{{option}}
+</div>
+<div class="item item-input-inset" ng-show="editing" ng-submit="editing = false">
+	<label class="item-input-wrapper">
+		<input type="text" placeholder="{{placeholder}}" ng-model="editableOption" submit-on-enter>
+	</label>
+	<a class="button button-small" ng-click="onCancel();">Cancel</a>
+	<a class="button button-small button-positive submit-action" ng-click="onSave();">Save</a>
+</div>
