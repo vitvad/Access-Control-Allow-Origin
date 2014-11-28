@@ -1,4 +1,5 @@
 var accessControlRequestHeaders;
+var accessControlRequestMethods;
 var exposedHeaders;
 
 var requestListener = function(details){
@@ -10,63 +11,69 @@ var requestListener = function(details){
 
 	for (var i = 0; i < details.requestHeaders.length; ++i) {
 		if (details.requestHeaders[i].name === rule.name) {
-			flag = true;
 			details.requestHeaders[i].value = rule.value;
+			flag = true;
 			break;
 		}
 	}
-	if(!flag) details.requestHeaders.push(rule);
+
+	if (!flag) details.requestHeaders.push(rule);
 	
 	for (var i = 0; i < details.requestHeaders.length; ++i) {
 		if (details.requestHeaders[i].name === "Access-Control-Request-Headers") {
-			accessControlRequestHeaders = details.requestHeaders[i].value	
+			accessControlRequestHeaders = details.requestHeaders[i].value;
+		}
+		if (details.requestHeaders[i].name === "Access-Control-Request-Method") {
+			accessControlRequestMethods = details.requestHeaders[i].value;
 		}
 	}	
 	
-	return {requestHeaders: details.requestHeaders};
+	return { requestHeaders: details.requestHeaders };
 };
 
 var responseListener = function(details){
 	var flag = false,
-	rule = {
+		rule = {
 			"name": "Access-Control-Allow-Origin",
 			"value": "*"
 		};
 
 	for (var i = 0; i < details.responseHeaders.length; ++i) {
 		if (details.responseHeaders[i].name === rule.name) {
-			flag = true;
 			details.responseHeaders[i].value = rule.value;
+			flag = true;
 			break;
 		}
 	}
-	if(!flag) details.responseHeaders.push(rule);
+
+	if (!flag) details.responseHeaders.push(rule);
 
 	if (accessControlRequestHeaders) {
-
-		details.responseHeaders.push({"name": "Access-Control-Allow-Headers", "value": accessControlRequestHeaders});
-
+		details.responseHeaders.push({ "name": "Access-Control-Allow-Headers", "value": accessControlRequestHeaders });
 	}
 
-	if(exposedHeaders) {
-		details.responseHeaders.push({"name": "Access-Control-Expose-Headers", "value": exposedHeaders});
+	if (accessControlRequestMethods) {
+		details.responseHeaders.push({ "name": "Access-Control-Allow-Methods", "value": accessControlRequestMethods });
 	}
 
-	return {responseHeaders: details.responseHeaders};
-	
+	if (exposedHeaders) {
+		details.responseHeaders.push({ "name": "Access-Control-Expose-Headers", "value": exposedHeaders });
+	}
+
+	return { responseHeaders: details.responseHeaders };
 };
 
 /*On install*/
 chrome.runtime.onInstalled.addListener(function(){
-	chrome.storage.local.set({'active': false});
-	chrome.storage.local.set({'urls': ["*://*/*"]});
-	chrome.storage.local.set({'exposedHeaders': ''});
+	chrome.storage.local.set({ 'active': false });
+	chrome.storage.local.set({ 'urls': ["*://*/*"] });
+	chrome.storage.local.set({ 'exposedHeaders': '' });
 	reload();
 });
 
 /*Reload settings*/
 function reload() {
-	chrome.storage.local.get({'active': false, 'urls': ["*://*/*"], 'exposedHeaders': ''}, function(result) {
+	chrome.storage.local.get({ 'active': false, 'urls': ["*://*/*"], 'exposedHeaders': '' }, function(result) {
 
 		exposedHeaders = result.exposedHeaders;
 
@@ -75,21 +82,21 @@ function reload() {
 		chrome.webRequest.onBeforeSendHeaders.removeListener(requestListener);
 
 		if(result.active) {
-			chrome.browserAction.setIcon({path: "on.png"});
+			chrome.browserAction.setIcon({ path: "on.png" });
 
 			if(result.urls.length) {
 
 				/*Add Listeners*/
 				chrome.webRequest.onHeadersReceived.addListener(responseListener, {
 					urls: result.urls
-				},["blocking", "responseHeaders"]);
+				}, ["blocking", "responseHeaders"]);
 
 				chrome.webRequest.onBeforeSendHeaders.addListener(requestListener, {
 					urls: result.urls
-				},["requestHeaders"]);
+				}, ["requestHeaders"]);
 			}
 		} else {
-			chrome.browserAction.setIcon({path: "off.png"});
+			chrome.browserAction.setIcon({ path: "off.png" });
 		}
 	});
 }
