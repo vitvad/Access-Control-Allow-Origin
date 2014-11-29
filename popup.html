@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="bower_components\jquery\dist\jquery.min.js"></script>
+		<script src="bower_components\ionic\release\js\ionic.bundle.js"></script>
+		<script src="popup.js"></script>
+		<link rel="stylesheet" href="popup.css">
+		<link rel="stylesheet" href="bower_components\ionic\release\css\ionic.css">
+	</head>
+	<body ng-app="cors" ng-controller="PopupCtrl">
+		<div class="bar bar-header bar-dark">
+			<h1 class="title">Settings</h1>
+		</div>
+		<div class="has-header">
+			<div class="list">
+				<ion-toggle ng-model="active" toggle-class="toggle-calm">Enable cross-origin resource sharing</ion-toggle>
+				<div class="item item-divider">
+					Access-Control-Expose-Headers
+				</div>
+				<text-option option="exposedHeaders" placeholder="comma-separated list of headers ..."></text-option>
+				<div class="item item-divider">
+					Intercepted URLs or URL patterns 
+					<a class="icon ion-link" style="cursor: pointer;" ng-click="openInNewTab('https://developer.chrome.com/extensions/match_patterns');"></a>
+				</div>
+				<div class="item item-input-inset">
+					<label class="item-input-wrapper">
+						<input type="text" placeholder="URL or URL pattern" ng-model="url" submit-on-enter>
+					</label>
+					<a class="button button-icon button-small icon ion-plus-circled submit-action" ng-click="addUrl();"></a>
+				</div>
+				<div class="item item-icon-right animate-enter-leave" ng-repeat="url in urls">
+					{{url}}
+					<a class="button button-icon button-small icon ion-ios7-trash-outline" ng-click="removeUrl($index);"></a>
+				</div>
+			</div>
+	</body>
+</html>

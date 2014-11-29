@@ -1,0 +1,50 @@
+html {
+	width: 400px;
+	min-height: 394px;
+}
+
+.has-header {
+	position: relative;
+	top: 44px !important;
+	height: 350px;
+	overflow-x: hidden;
+	overflow-y: auto;
+
+}
+
+label.toggle {
+	cursor: pointer;
+}
+
+.item.active:not(.item-divider):not(.item-input):not(.item-input-inset), .item-complex.active .item-content {
+	background-color: #fff !important;
+	border-color: #ddd !important;
+}
+
+.item.animate-enter-leave {
+	padding-top: 0px;
+	padding-bottom: 0px;
+	line-height: 50px;
+	position: relative;
+	top: 0px;
+}
+
+.item.animate-enter-leave.ng-leave,
+.item.animate-enter-leave.ng-enter {
+	-webkit-transition: all linear .2s;
+	transition: all linear .2s;
+}
+
+.item.animate-enter-leave.ng-leave.ng-leave-active,
+.item.animate-enter-leave.ng-enter {
+	opacity: 0;
+	line-height: 0px;
+	top: -30px;
+}
+
+.item.animate-enter-leave.ng-enter.ng-enter-active,
+.item.animate-enter-leave.ng-leave {
+	opacity: 1;
+	line-height: 50px;
+	top: 0;
+}
