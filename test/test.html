@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+</head>
+<body>
+    <script>
+    [
+    function(){
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'http://localhost/', true);
+        xhr.setRequestHeader('X-Test', "ololo");
+        xhr.setRequestHeader('X-Ping', "ololo2");
+        xhr.setRequestHeader('X-Ping2', "ololo3");
+        xhr.onreadystatechange = function(){
+           if (xhr.readyState == 4) {
+              console.log("'GET', 'http://localhost/'", xhr.status, xhr.statusText);
+           }
+        };
+        xhr.send('test');
+    },
+    function(){
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'http://localhost/', true);
+        xhr.setRequestHeader('X-Test', "ololo");
+        xhr.setRequestHeader('X-Ping', "ololo2");
+        xhr.setRequestHeader('X-Ping2', "ololo3");
+        xhr.onreadystatechange = function(){
+           if (xhr.readyState == 4) {
+              console.log("'POST', 'http://localhost/'", xhr.status, xhr.statusText);
+              console.table(xhr.getAllResponseHeaders());
+           }
+        };
+        xhr.send('test');
+    },
+    function(){
+        var xhr = new XMLHttpRequest();
+        xhr.open('PUT', 'http://localhost/', true);
+        xhr.setRequestHeader('X-Test', "ololo");
+        xhr.setRequestHeader('X-Ping', "ololo2");
+        xhr.setRequestHeader('X-Ping2', "ololo3");
+        xhr.onreadystatechange = function(){
+           if (xhr.readyState == 4) {
+              console.log("'PUT', 'http://localhost/'", xhr.status, xhr.statusText);
+           }
+        };
+        xhr.send('test');
+    },    function(){
+        var xhr = new XMLHttpRequest();
+        xhr.open('DELETE', 'http://localhost/', true);
+        xhr.setRequestHeader('X-Test', "ololo");
+        xhr.setRequestHeader('X-Ping', "ololo2");
+        xhr.setRequestHeader('X-Ping2', "ololo3");
+        xhr.onreadystatechange = function(){
+           if (xhr.readyState == 4) {
+              console.log("'DELETE', 'http://localhost/'", xhr.status, xhr.statusText);
+           }
+        };
+        xhr.send('test');
+    }
+    /*function(){
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'file:///C:/Windows/system.ini', true);
+        xhr.onreadystatechange = function(){
+           if (xhr.readyState == 4) {
+              console.log("'GET', 'file:///C:/Windows/system.ini'", xhr.status, xhr.statusText);
+           }
+        };
+        xhr.send('test');
+    }*/
+    ].forEach(function(fn){
+      try{
+        fn.call(this);
+      } catch(e) {
+        //console.error(arguments);
+      }
+    })
+    </script>
+</body>
+</html>

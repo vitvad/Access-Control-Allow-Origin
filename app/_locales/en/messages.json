@@ -1,0 +1,20 @@
+{
+  "appName": {
+    "message": "Allow-Control-Allow-Origin: *"
+  },
+  "appDescription": {
+    "message": "Allows to you request any site with ajax from any source. Adds to response 'Allow-Control-Allow-Origin: *' header"
+  },
+  "settings": {
+    "message": "Settings"
+  },
+  "allowHeaders": {
+    "message": "Access-Control-Expose-Headers"
+  },
+  "sharingHeader": {
+    "message": "Enable cross-origin resource sharing"
+  },
+  "urlPatterns": {
+    "message": "Intercepted URLs or URL patterns"
+  }
+}
