@@ -1,23 +1,29 @@
 {
-	"name": "Allow-Control-Allow-Origin: *",
-	"version": "1.0.2",
-	"manifest_version": 2,
-	"description": "Allows to you request any site with ajax from any source. Adds to response 'Allow-Control-Allow-Origin: *' header",
-	"background": {
-		"scripts": ["background.js"]
-	},
-	"browser_action": {
-		"default_icon": "off.png",
-		"default_title": "Allow-Control-Allow-Origin",
-		"default_popup": "popup.html"
-	},
-	"permissions": [
-		"storage",
-		"webRequest",
-		"webRequestBlocking",
-		"*://*/*"
-	],
-	"web_accessible_resources": [
-		"on.png","off.png"
-	]
+    "name": "__MSG_appName__",
+    "version": "1.1.0",
+    "manifest_version": 2,
+    "description": "__MSG_appDescription__",
+    "default_locale": "en",
+    "background": {
+        "scripts": [
+            "js/background.js"
+        ]
+    },
+    "browser_action": {
+        "default_icon": "images/off.png",
+        "default_title": "__MSG_appName__",
+        "default_popup": "popup.html"
+    },
+    "permissions": [
+        "tabs",
+        "storage",
+        "webRequest",
+        "webRequestBlocking",
+        "*://*/*"
+    ],
+    "web_accessible_resources": [
+        "images/on.png",
+        "images/off.png"
+    ],
+    "options_page": "options.html"
 }
