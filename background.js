@@ -52,7 +52,7 @@ var responseListener = function(details){
 		details.responseHeaders.push({"name": "Access-Control-Expose-Headers", "value": exposedHeaders});
 	}
 
-	details.responseHeaders.push({"name": "Access-Control-Allow-Methods", "value": "GET, PUT, POST, DELETE, HEAD"});
+	details.responseHeaders.push({"name": "Access-Control-Allow-Methods", "value": "GET, PUT, POST, DELETE, HEAD, OPTIONS"});
 
 	return {responseHeaders: details.responseHeaders};
 	
