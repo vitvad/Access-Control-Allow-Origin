@@ -7,5 +7,5 @@ Chrome extension: https://chrome.google.com/webstore/detail/allow-control-allow-
 
 develep
 =======
-npm install -g bower
-bower install
+- npm install -g bower
+- bower install
