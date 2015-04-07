@@ -1,0 +1,20 @@
+{
+  "name": "Access-Control-Allow-Origin",
+  "version": "1.0.0",
+  "description": "Access-Control-Allow-Origin\r ===========================",
+  "main": "background.js",
+  "scripts": {
+    "setup":"npm install -g bower && npm install && bower install",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://lotosbin@github.com/lotosbin/Access-Control-Allow-Origin.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lotosbin/Access-Control-Allow-Origin/issues"
+  },
+  "homepage": "https://github.com/lotosbin/Access-Control-Allow-Origin"
+}

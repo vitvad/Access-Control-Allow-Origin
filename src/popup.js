@@ -26,7 +26,7 @@ app.controller('PopupCtrl', ['$scope', function($scope) {
 		$scope.$watch('urls', function(newValue, oldValue) {
 			chrome.storage.local.set({'urls': $scope.urls});
 			chrome.extension.getBackgroundPage().reload();
-		});
+		},true);
 	});
 
 	$scope.openInNewTab = function(url) {
