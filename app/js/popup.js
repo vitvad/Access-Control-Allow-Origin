@@ -53,16 +53,26 @@ app.controller('PopupCtrl', ['$scope', function($scope) {
     });
   };
 
+  var updateUrlsInStorage = function(){
+	  console.log($scope.urls)
+	  chrome.storage.local.set({
+		  'urls':$scope.urls
+	  })
+  };
+  
   $scope.addUrl = function() {
-    if ($scope.url && angular.inArray($scope.url, $scope.urls) === -1) {
+    if ($scope.url && $scope.urls.indexOf($scope.url) === -1) {
       $scope.urls.unshift($scope.url);
     }
     $scope.url = '';
+	  updateUrlsInStorage();
   };
 
   $scope.removeUrl = function(index) {
     $scope.urls.splice(index, 1);
-  };
+	  updateUrlsInStorage();
+  }; 
+  
 }]);
 
 app.directive('textOption', function() {
