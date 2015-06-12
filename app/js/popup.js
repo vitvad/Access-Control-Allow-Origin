@@ -44,7 +44,7 @@ app.controller('PopupCtrl', ['$scope', function($scope) {
         'urls': $scope.urls
       });
       chrome.extension.getBackgroundPage().reload();
-    });
+    }, true);
   });
 
   $scope.openInNewTab = function(url) {
@@ -52,9 +52,9 @@ app.controller('PopupCtrl', ['$scope', function($scope) {
       url: url
     });
   };
-
+  
   $scope.addUrl = function() {
-    if ($scope.url && angular.inArray($scope.url, $scope.urls) === -1) {
+    if ($scope.url && $scope.urls.indexOf($scope.url) === -1) {
       $scope.urls.unshift($scope.url);
     }
     $scope.url = '';
@@ -62,7 +62,7 @@ app.controller('PopupCtrl', ['$scope', function($scope) {
 
   $scope.removeUrl = function(index) {
     $scope.urls.splice(index, 1);
-  };
+  }; 
 }]);
 
 app.directive('textOption', function() {
