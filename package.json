@@ -1,31 +1,47 @@
 {
-  "name": "test",
-  "version": "0.0.0",
+  "name": "Access-Control-Allow-Origin",
+  "version": "1.0.3",
+  "description": "Access-Control-Allow-Origin\r ===========================",
+  "main": "background.js",
+  "scripts": {
+    "setup": "npm install -g bower && npm install && bower install",
+    "test": "node server/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://lotosbin@github.com/lotosbin/Access-Control-Allow-Origin.git"
+  },
+  "author": "Vitaly Pereverzev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lotosbin/Access-Control-Allow-Origin/issues"
+  },
+  "homepage": "https://github.com/lotosbin/Access-Control-Allow-Origin",
   "dependencies": {
     "express": "^4.10.4"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
-    "grunt-contrib-copy": "~0.5.0",
-    "grunt-contrib-concat": "~0.3.0",
-    "grunt-contrib-uglify": "~0.4.0",
-    "grunt-contrib-jshint": "~0.9.2",
-    "grunt-contrib-cssmin": "~0.9.0",
-    "grunt-contrib-connect": "~0.7.1",
-    "grunt-contrib-clean": "~0.5.0",
-    "grunt-contrib-htmlmin": "~0.2.0",
     "grunt-bower-install": "~1.0.0",
+    "grunt-chrome-manifest": "~0.2.0",
+    "grunt-concurrent": "~0.5.0",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-compress": "~0.9.1",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-connect": "~0.7.1",
+    "grunt-contrib-copy": "~0.5.0",
+    "grunt-contrib-cssmin": "~0.9.0",
+    "grunt-contrib-htmlmin": "~0.2.0",
     "grunt-contrib-imagemin": "~0.7.1",
+    "grunt-contrib-jshint": "~0.9.2",
+    "grunt-contrib-uglify": "~0.4.0",
     "grunt-contrib-watch": "~0.6.1",
-    "grunt-usemin": "~2.1.0",
     "grunt-mocha": "~0.4.10",
     "grunt-svgmin": "~0.4.0",
-    "grunt-concurrent": "~0.5.0",
-    "load-grunt-tasks": "~0.4.0",
-    "time-grunt": "~0.3.1",
+    "grunt-usemin": "~2.1.0",
     "jshint-stylish": "~0.1.5",
-    "grunt-chrome-manifest": "~0.2.0",
-    "grunt-contrib-compress": "~0.9.1"
+    "load-grunt-tasks": "~0.4.0",
+    "time-grunt": "~0.3.1"
   },
   "engines": {
     "node": ">=0.8.0"
