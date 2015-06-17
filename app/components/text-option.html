@@ -3,7 +3,7 @@
 </div>
 <div class="item item-input-inset" ng-show="editing" ng-submit="editing = false">
 	<label class="item-input-wrapper">
-		<input type="text" placeholder="{{placeholder}}" ng-model="editableOption" submit-on-enter>
+		<input type="text" placeholder="{{placeholder}}" ng-model="editableOption" submit-on-enter="onSave()">
 	</label>
 	<a class="button button-small" ng-click="onCancel();">Cancel</a>
 	<a class="button button-small button-positive submit-action" ng-click="onSave();">Save</a>

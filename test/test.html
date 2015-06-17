@@ -19,8 +19,8 @@
            }
         };
         xhr.send('test');
-    },
-    function(){
+    }
+    , function(){
         var xhr = new XMLHttpRequest();
         xhr.open('POST', 'http://localhost/', true);
         xhr.setRequestHeader('X-Test', "ololo");
@@ -33,8 +33,8 @@
            }
         };
         xhr.send('test');
-    },
-    function(){
+    }
+    , function(){
         var xhr = new XMLHttpRequest();
         xhr.open('PUT', 'http://localhost/', true);
         xhr.setRequestHeader('X-Test', "ololo");
@@ -46,7 +46,8 @@
            }
         };
         xhr.send('test');
-    },    function(){
+    }
+    , function(){
         var xhr = new XMLHttpRequest();
         xhr.open('DELETE', 'http://localhost/', true);
         xhr.setRequestHeader('X-Test', "ololo");
@@ -59,7 +60,7 @@
         };
         xhr.send('test');
     }
-    /*function(){
+    , function(){
         var xhr = new XMLHttpRequest();
         xhr.open('GET', 'file:///C:/Windows/system.ini', true);
         xhr.onreadystatechange = function(){
@@ -68,7 +69,17 @@
            }
         };
         xhr.send('test');
-    }*/
+    }
+      , function(){
+      var xhr = new XMLHttpRequest();
+      xhr.open('DELETE', 'http://google.com/', true);
+      xhr.onreadystatechange = function(){
+        if (xhr.readyState == 4) {
+          console.log("'DELETE', 'http://google.com/'", xhr.status, xhr.statusText);
+        }
+      };
+      xhr.send('test');
+    }
     ].forEach(function(fn){
       try{
         fn.call(this);

@@ -2,7 +2,8 @@
 /* global angular */
 var app = angular.module('cors', ['ionic']);
 
-app.controller('PopupCtrl', ['$scope', function($scope) {
+app.controller('PopupCtrl', ['$scope', function ($scope) {
+  var $backgroundPage = chrome.extension.getBackgroundPage();
 
   $scope.active = false;
   $scope.urls = [];
@@ -19,31 +20,35 @@ app.controller('PopupCtrl', ['$scope', function($scope) {
     'active': $scope.active,
     'urls': [],
     'exposedHeaders': ''
-  }, function(result) {
+  }, function (result) {
+    console.info('result', result);
     $scope.active = result.active;
     $scope.urls = result.urls;
     $scope.exposedHeaders = result.exposedHeaders;
     $scope.$apply();
 
-    $scope.$watch('active', function() {
+    $scope.$watch('active', function () {
+      console.info('active', arguments, this);
       chrome.storage.local.set({
         'active': $scope.active
       });
-      chrome.extension.getBackgroundPage().reload();
+      $backgroundPage.reload();
     });
 
-    $scope.$watch('exposedHeaders', function() {
+    $scope.$watch('exposedHeaders', function () {
+      console.info('exposedHeaders', arguments, this);
       chrome.storage.local.set({
         'exposedHeaders': $scope.exposedHeaders
       });
-      chrome.extension.getBackgroundPage().reload();
+      $backgroundPage.reload();
     });
 
-    $scope.$watch('urls', function() {
+    $scope.$watch('urls', function () {
+      console.info('watch urls ',arguments, this);
       chrome.storage.local.set({
         'urls': $scope.urls
       });
-      chrome.extension.getBackgroundPage().reload();
+      $backgroundPage.reload();
     }, true);
   });
 
@@ -52,7 +57,7 @@ app.controller('PopupCtrl', ['$scope', function($scope) {
       url: url
     });
   };
-  
+
   $scope.addUrl = function() {
     if ($scope.url && $scope.urls.indexOf($scope.url) === -1) {
       $scope.urls.unshift($scope.url);
@@ -62,7 +67,7 @@ app.controller('PopupCtrl', ['$scope', function($scope) {
 
   $scope.removeUrl = function(index) {
     $scope.urls.splice(index, 1);
-  }; 
+  };
 }]);
 
 app.directive('textOption', function() {
@@ -93,13 +98,17 @@ app.directive('textOption', function() {
   };
 });
 
-app.directive('submitOnEnter', function() {
+app.directive('submitOnEnter', function () {
   return {
     restrict: 'A',
-    link: function(scope, element) {
-      angular.element(element).on('keydown', function(e) {
+    scope: {
+      methodName: '&submitOnEnter'
+    },
+    link: function (scope, element) {
+      angular.element(element).on('keydown', function (e) {
         if (e.keyCode === 13) {
-          angular.element(element).parent().parent().find('.submit-action').click();
+          scope.methodName();
+          scope.$apply();
         }
       });
     }

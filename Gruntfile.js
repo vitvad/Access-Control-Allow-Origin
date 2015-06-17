@@ -151,7 +151,13 @@ module.exports = function (grunt) {
     // Performs rewrites based on rev and the useminPrepare configuration
     usemin: {
       options: {
-        assetsDirs: ['<%= config.dist %>', '<%= config.dist %>/images']
+        assetsDirs: ['<%= config.dist %>', '<%= config.dist %>/images'],
+        blockReplacements: {
+          fonts: function (block) {
+            console.info(block.dest);
+            return '';//'<link rel="stylesheet" href="' + block.dest + '">';
+          }
+        }
       },
       html: ['<%= config.dist %>/{,*/}*.html'],
       css: ['<%= config.dist %>/css/{,*/}*.css']
@@ -241,6 +247,17 @@ module.exports = function (grunt) {
             'css/{,*/}*.css',
             'css/fonts/{,*/}*.*',
             '_locales/{,*/}*.json',
+            'js/*.js'
+          ]
+        },
+        // copy ionic fonts
+        {
+          expand: true,
+          dot: true,
+          cwd: '<%= config.app %>/bower_components/ionic/release/',
+          dest: '<%= config.dist %>/vendor',
+          src: [
+            'fonts/*'
           ]
         }]
       }
@@ -260,9 +277,22 @@ module.exports = function (grunt) {
 
     // Auto buildnumber, exclude debug files. smart builds that event pages
     chromeManifest: {
+      release: {
+        options: {
+          buildnumber: 'both',
+          background: {
+            target: 'js/background.js',
+            exclude: [
+              'js/chromereload.js'
+            ]
+          }
+        },
+        src: '<%= config.app %>',
+        dest: '<%= config.dist %>'
+      },
       dist: {
         options: {
-          buildnumber: true,
+          buildnumber: false,
           background: {
             target: 'js/background.js',
             exclude: [
@@ -317,13 +347,25 @@ module.exports = function (grunt) {
     'concat',
     'uglify',
     'copy',
+    'usemin'
+  ]);
+
+  grunt.registerTask('release', [
+    'clean:dist',
+    'chromeManifest:release',
+    'useminPrepare',
+    'concurrent:dist',
+    'cssmin',
+    'concat',
+    'uglify',
+    'copy',
     'usemin',
     'compress'
   ]);
 
   grunt.registerTask('default', [
     'jshint',
-    'test',
+    //'test',
     'build'
   ]);
 };
