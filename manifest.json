@@ -15,7 +15,7 @@
 		"storage",
 		"webRequest",
 		"webRequestBlocking",
-		"*://*/*"
+		"<all_urls>"
 	],
 	"web_accessible_resources": [
 		"on.png","off.png"

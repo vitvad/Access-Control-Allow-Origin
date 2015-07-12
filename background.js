@@ -7,8 +7,9 @@ var requestListener = function(details){
 			name: "Origin",
 			value: "http://evil.com/"
 		};
+	var i;
 
-	for (var i = 0; i < details.requestHeaders.length; ++i) {
+	for (i = 0; i < details.requestHeaders.length; ++i) {
 		if (details.requestHeaders[i].name === rule.name) {
 			flag = true;
 			details.requestHeaders[i].value = rule.value;
@@ -17,7 +18,7 @@ var requestListener = function(details){
 	}
 	if(!flag) details.requestHeaders.push(rule);
 	
-	for (var i = 0; i < details.requestHeaders.length; ++i) {
+	for (i = 0; i < details.requestHeaders.length; ++i) {
 		if (details.requestHeaders[i].name === "Access-Control-Request-Headers") {
 			accessControlRequestHeaders = details.requestHeaders[i].value	
 		}
@@ -61,14 +62,14 @@ var responseListener = function(details){
 /*On install*/
 chrome.runtime.onInstalled.addListener(function(){
 	chrome.storage.local.set({'active': false});
-	chrome.storage.local.set({'urls': ["*://*/*"]});
+	chrome.storage.local.set({'urls': ["<all_urls>"]});
 	chrome.storage.local.set({'exposedHeaders': ''});
 	reload();
 });
 
 /*Reload settings*/
 function reload() {
-	chrome.storage.local.get({'active': false, 'urls': ["*://*/*"], 'exposedHeaders': ''}, function(result) {
+	chrome.storage.local.get({'active': false, 'urls': ["<all_urls>"], 'exposedHeaders': ''}, function(result) {
 
 		exposedHeaders = result.exposedHeaders;
 
