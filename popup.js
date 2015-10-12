@@ -31,7 +31,7 @@ app.controller('PopupCtrl', ['$scope', function($scope) {
 
 	$scope.openInNewTab = function(url) {
 		chrome.tabs.create({ url: url });
-	}
+	};
 
 	$scope.addUrl = function() {
 		if($scope.url && $.inArray($scope.url, $scope.urls) == -1) {
