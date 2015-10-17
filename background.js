@@ -10,7 +10,7 @@ var requestListener = function(details){
 	var i;
 
 	for (i = 0; i < details.requestHeaders.length; ++i) {
-		if (details.requestHeaders[i].name === rule.name) {
+		if (details.requestHeaders[i].name.toLowerCase() === rule.name.toLowerCase()) {
 			flag = true;
 			details.requestHeaders[i].value = rule.value;
 			break;
@@ -19,7 +19,7 @@ var requestListener = function(details){
 	if(!flag) details.requestHeaders.push(rule);
 	
 	for (i = 0; i < details.requestHeaders.length; ++i) {
-		if (details.requestHeaders[i].name === "Access-Control-Request-Headers") {
+		if (details.requestHeaders[i].name.toLowerCase() === "access-control-request-headers") {
 			accessControlRequestHeaders = details.requestHeaders[i].value	
 		}
 	}	
@@ -35,7 +35,7 @@ var responseListener = function(details){
 		};
 
 	for (var i = 0; i < details.responseHeaders.length; ++i) {
-		if (details.responseHeaders[i].name === rule.name) {
+		if (details.responseHeaders[i].name.toLowerCase() === rule.name.toLowerCase()) {
 			flag = true;
 			details.responseHeaders[i].value = rule.value;
 			break;
