@@ -61,9 +61,6 @@ var responseListener = function(details){
 
 /*On install*/
 chrome.runtime.onInstalled.addListener(function(){
-	chrome.storage.local.set({'active': false});
-	chrome.storage.local.set({'urls': ["<all_urls>"]});
-	chrome.storage.local.set({'exposedHeaders': ''});
 	reload();
 });
 
