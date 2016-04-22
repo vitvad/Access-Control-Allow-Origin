@@ -7,14 +7,20 @@ app.controller('PopupCtrl', ['$scope', function($scope) {
 	$scope.url = '';
 	$scope.exposedHeaders = '';
 
-	chrome.storage.local.get({'active': false, 'urls': [], 'exposedHeaders': ''}, function(result) {
+	chrome.storage.local.get({'active': false, 'urls': [], 'allowedMethods': 'GET, PUT, POST, DELETE, HEAD, OPTIONS', 'exposedHeaders': ''}, function(result) {
 		$scope.active = result.active;
 		$scope.urls = result.urls;
+		$scope.allowedMethods = result.allowedMethods;
 		$scope.exposedHeaders = result.exposedHeaders;
 		$scope.$apply();
 
 		$scope.$watch('active', function(newValue, oldValue) {
 			chrome.storage.local.set({'active': $scope.active});
+			chrome.extension.getBackgroundPage().reload();
+		});
+
+		$scope.$watch('allowedMethods', function(newValue, oldValue) {
+			chrome.storage.local.set({'allowedMethods': $scope.allowedMethods});
 			chrome.extension.getBackgroundPage().reload();
 		});
 

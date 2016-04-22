@@ -1,4 +1,5 @@
 var accessControlRequestHeaders;
+var allowedMethods;
 var exposedHeaders;
 
 var requestListener = function(details){
@@ -53,7 +54,7 @@ var responseListener = function(details){
 		details.responseHeaders.push({"name": "Access-Control-Expose-Headers", "value": exposedHeaders});
 	}
 
-	details.responseHeaders.push({"name": "Access-Control-Allow-Methods", "value": "GET, PUT, POST, DELETE, HEAD, OPTIONS"});
+	details.responseHeaders.push({"name": "Access-Control-Allow-Methods", "value": allowedMethods});
 
 	return {responseHeaders: details.responseHeaders};
 	
@@ -63,14 +64,16 @@ var responseListener = function(details){
 chrome.runtime.onInstalled.addListener(function(){
 	chrome.storage.local.set({'active': false});
 	chrome.storage.local.set({'urls': ["<all_urls>"]});
+	chrome.storage.local.set({'allowedMethods': 'GET, PUT, POST, DELETE, HEAD, OPTIONS'});
 	chrome.storage.local.set({'exposedHeaders': ''});
 	reload();
 });
 
 /*Reload settings*/
 function reload() {
-	chrome.storage.local.get({'active': false, 'urls': ["<all_urls>"], 'exposedHeaders': ''}, function(result) {
+	chrome.storage.local.get({'active': false, 'urls': ["<all_urls>"], 'allowedMethods': 'GET, PUT, POST, DELETE, HEAD, OPTIONS', 'exposedHeaders': ''}, function(result) {
 
+		allowedMethods = result.allowedMethods;
 		exposedHeaders = result.exposedHeaders;
 
 		/*Remove Listeners*/

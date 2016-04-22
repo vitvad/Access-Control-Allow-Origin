@@ -1,12 +1,12 @@
 html {
 	width: 400px;
-	min-height: 394px;
+	min-height: 444px;
 }
 
 .has-header {
 	position: relative;
 	top: 44px !important;
-	height: 350px;
+	height: 400px;
 	overflow-x: hidden;
 	overflow-y: auto;
 
