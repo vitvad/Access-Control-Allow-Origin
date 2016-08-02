@@ -31,7 +31,7 @@ var responseListener = function(details){
 	var flag = false,
 	rule = {
 			"name": "Access-Control-Allow-Origin",
-			"value": "*"
+			"value": details.originUrl
 		};
 
 	for (var i = 0; i < details.responseHeaders.length; ++i) {
