@@ -17,13 +17,13 @@ var requestListener = function(details){
 		}
 	}
 	if(!flag) details.requestHeaders.push(rule);
-	
+
 	for (i = 0; i < details.requestHeaders.length; ++i) {
 		if (details.requestHeaders[i].name.toLowerCase() === "access-control-request-headers") {
-			accessControlRequestHeaders = details.requestHeaders[i].value	
+			accessControlRequestHeaders = details.requestHeaders[i].value
 		}
-	}	
-	
+	}
+
 	return {requestHeaders: details.requestHeaders};
 };
 
@@ -53,10 +53,10 @@ var responseListener = function(details){
 		details.responseHeaders.push({"name": "Access-Control-Expose-Headers", "value": exposedHeaders});
 	}
 
-	details.responseHeaders.push({"name": "Access-Control-Allow-Methods", "value": "GET, PUT, POST, DELETE, HEAD, OPTIONS"});
+	details.responseHeaders.push({"name": "Access-Control-Allow-Methods", "value": "GET, PUT, POST, DELETE, HEAD, OPTIONS, PATCH"});
 
 	return {responseHeaders: details.responseHeaders};
-	
+
 };
 
 /*On install*/
