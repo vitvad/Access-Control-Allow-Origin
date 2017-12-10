@@ -4,8 +4,7 @@ var exposedHeaders;
 var requestListener = function(details){
 	var flag = false,
 		rule = {
-			name: "Origin",
-			value: "http://evil.com/"
+			name: "Origin"
 		};
 	var i;
 
