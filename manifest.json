@@ -1,7 +1,7 @@
 {
 	"name": "Allow-Control-Allow-Origin: *",
-	"version": "1.0.2",
-	"manifest_version": 2,
+	"version": "1.0.3",
+	"manifest_version": 3,
 	"description": "Allows to you request any site with ajax from any source. Adds to response 'Allow-Control-Allow-Origin: *' header",
 	"background": {
 		"scripts": ["background.js"]
