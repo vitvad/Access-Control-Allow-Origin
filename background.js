@@ -2,21 +2,25 @@ var accessControlRequestHeaders;
 var exposedHeaders;
 
 var requestListener = function(details){
-	var flag = false,
-		rule = {
-			name: "Origin",
-			value: "http://evil.com/"
-		};
+	var flag = false;
+	// Specify a `name` and `value` property within `rule` to
+	// customize a request header. For instance, the commented
+	// out values will include in the header "Origin: 'https://my_changed_origin.com'"
+	var rule = null;
+	// var rule = {
+		// name: "Origin",
+		// value: "https://my_changed_origin.com"
+	// };
 	var i;
 
 	for (i = 0; i < details.requestHeaders.length; ++i) {
-		if (details.requestHeaders[i].name.toLowerCase() === rule.name.toLowerCase()) {
+		if (rule && details.requestHeaders[i].name.toLowerCase() === rule.name.toLowerCase()) {
 			flag = true;
 			details.requestHeaders[i].value = rule.value;
 			break;
 		}
 	}
-	if(!flag) details.requestHeaders.push(rule);
+	if(rule && !flag) details.requestHeaders.push(rule);
 	
 	for (i = 0; i < details.requestHeaders.length; ++i) {
 		if (details.requestHeaders[i].name.toLowerCase() === "access-control-request-headers") {
