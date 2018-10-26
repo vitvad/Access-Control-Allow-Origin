@@ -61,15 +61,15 @@ var responseListener = function(details){
 
 /*On install*/
 chrome.runtime.onInstalled.addListener(function(){
-	chrome.storage.local.set({'active': false});
-	chrome.storage.local.set({'urls': ["<all_urls>"]});
-	chrome.storage.local.set({'exposedHeaders': ''});
+	chrome.storage.sync.set({'active': false});
+	chrome.storage.sync.set({'urls': ["<all_urls>"]});
+	chrome.storage.sync.set({'exposedHeaders': ''});
 	reload();
 });
 
 /*Reload settings*/
 function reload() {
-	chrome.storage.local.get({'active': false, 'urls': ["<all_urls>"], 'exposedHeaders': ''}, function(result) {
+	chrome.storage.sync.get({'active': false, 'urls': ["<all_urls>"], 'exposedHeaders': ''}, function(result) {
 
 		exposedHeaders = result.exposedHeaders;
 

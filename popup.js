@@ -7,24 +7,24 @@ app.controller('PopupCtrl', ['$scope', function($scope) {
 	$scope.url = '';
 	$scope.exposedHeaders = '';
 
-	chrome.storage.local.get({'active': false, 'urls': [], 'exposedHeaders': ''}, function(result) {
+	chrome.storage.sync.get({'active': false, 'urls': [], 'exposedHeaders': ''}, function(result) {
 		$scope.active = result.active;
 		$scope.urls = result.urls;
 		$scope.exposedHeaders = result.exposedHeaders;
 		$scope.$apply();
 
 		$scope.$watch('active', function(newValue, oldValue) {
-			chrome.storage.local.set({'active': $scope.active});
+			chrome.storage.sync.set({'active': $scope.active});
 			chrome.extension.getBackgroundPage().reload();
 		});
 
 		$scope.$watch('exposedHeaders', function(newValue, oldValue) {
-			chrome.storage.local.set({'exposedHeaders': $scope.exposedHeaders});
+			chrome.storage.sync.set({'exposedHeaders': $scope.exposedHeaders});
 			chrome.extension.getBackgroundPage().reload();
 		});
 
 		$scope.$watch('urls', function(newValue, oldValue) {
-			chrome.storage.local.set({'urls': $scope.urls});
+			chrome.storage.sync.set({'urls': $scope.urls});
 			chrome.extension.getBackgroundPage().reload();
 		});
 	});
