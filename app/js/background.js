@@ -89,7 +89,7 @@ var requestListener = function (details) {
     var flag = false;
 
     details.requestHeaders.forEach(function (header) {
-      if (header.name === rule.data.name) {
+      if (header.name.toLowerCase() === rule.data.name.toLowerCase()) {
         flag = true;
         if (rule.fn) {
           rule.fn.call(null, rule, header, details);
@@ -129,7 +129,7 @@ var responseListener = function (details) {
 
     details.responseHeaders.forEach(function (header) {
       // if rule exist in response - rewrite value
-      if (header.name === rule.data.name) {
+      if (header.name.toLowerCase() === rule.data.name.toLowerCase()) {
         flag = true;
         if (rule.fn) {
           rule.fn.call(null, rule.data, header, details);
